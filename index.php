@@ -1,6 +1,6 @@
 <?php
   require "data.php";
-
+// add new movies to the array
   if (isset($_POST['movie_title'])) {
     array_push($movies, [
       'movie_id' => end($movies)['movie_id'] + 1,
@@ -12,7 +12,7 @@
 
     $_SESSION['movies'] = $movies;
   }
-
+//search bar to filter movies
   if (isset($_GET['search'])) {
     $movies = array_filter($movies, function ($movie) {
       return strpos(strtolower($movie['movie_title']), strtolower($_GET['search'])) !== false;
@@ -25,7 +25,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movies</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css%22%3E">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>

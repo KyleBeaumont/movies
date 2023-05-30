@@ -20,19 +20,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?php echo $movie['movie_title']; ?></title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css%22%3E
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="main">
     <?php require "header.php"; ?>
     <section class="movie-details">
-      <a class="movie-edit" href="edit.php">Edit</a>
-      <h2 class="movie-title">Labyrinth <span class="movie-year">(1986)</span></h2>
-      <h4 class="movie-genre">Fantasy</h4>
-      
+      <!-- retreive the movie id and the specific data  -->
+      <a class="movie-edit" href="edit.php?id=<?php echo $movie['movie_id']; ?>">Edit</a>
+      <h2 class="movie-title"><?php echo $movie['movie_title']; ?> <span class="movie-year">(<?php echo $movie['year']; ?>)</span></h2>
+      <h4 class="movie-genre"><?php echo $movie['genre']; ?></h4>
+
       Director<br><strong><?php echo $movie['director']; ?></strong>
-      
+
     </section>
   </main>
 </body>
