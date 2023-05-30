@@ -28,8 +28,8 @@
     <?php require "header.php"; ?>
     <section class="movie-details">
       <a class="movie-edit" href="edit.php">Edit</a>
-      <h2 class="movie-title"><?php echo $movie['movie_title']; ?> <span class="movie-year">(<?php echo $movie['year']; ?>)</span></h2>
-      <h4 class="movie-genre"><?php echo $movie['genre']; ?></h4>
+      <h2 class="movie-title">Labyrinth <span class="movie-year">(1986)</span></h2>
+      <h4 class="movie-genre">Fantasy</h4>
       
       Director<br><strong><?php echo $movie['director']; ?></strong>
       
