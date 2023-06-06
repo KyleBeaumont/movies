@@ -2,7 +2,7 @@
   require "data.php";
 //UPDATE AND REPLACE THE DATA WE RECRIVED FROM THE NEW INPUT/ENTRANCE
   if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $movie = [
+    $new = [
       // 'movie_id' => $_GET['id'],
       'movie_id' => $_POST['movie_id'],
       'movie_title' => $_POST['movie_title'],
@@ -35,11 +35,12 @@
     //  exit();
 
 // come back to this page if it does not find any matching id 
+  
     if (!$movie){
       header("Location:index.php");
-    }else{
-      header("Location:edit.php");
     }
+  }else{
+    header("Location:index.php");
   }
 ?>
 <!DOCTYPE html>
@@ -55,43 +56,11 @@
   <main class="main">
     <?php require "header.php"; ?>
     <h2 class="form-title">Edit Movie</h2>
-    <form class="form" method="post">
+    <form class="form" method="post" action="delete.php">
       <input type="hidden" name="movie_id" value="<?php echo $movie['movie_id']; ?>">
-      <input 
-        type="text" 
-        class="form-control" 
-        name="movie_title" 
-        placeholder="Movie Title" 
-        required 
-        value="<?php echo $movie['movie_title']; ?>">
-      <div class="error text-danger"></div>
-      <input 
-        type="text" 
-        class="form-control" 
-        name="director" 
-        placeholder="Director" 
-        required
-        value="<?php echo $movie['director']; ?>">
-      <div class="error text-danger"></div>
-      <input 
-        type="number" 
-        class="form-control" 
-        name="year" 
-        placeholder="Year" 
-        required
-        value="<?php echo $movie['year']; ?>">
-      <div class="error text-danger"></div>
-      <select class="form-select" name="genre">
-        <option value="">Select a Genre</option>
-        <?php foreach ($genres as $genre) : ?>
-        <option value="<?php echo $genre; ?>"
-        <?php if($genre === $movie['genre']): ?> Selected <?php endif; ?>>
-          <?php echo $genre; ?>
-        </option>
-        <?php endforeach; ?>
-      </select>
-      <div class="error text-danger"></div>
-      <button type="submit" class="button">Update Movie</button>
+      <button class="button danger">delete</button>
+
+      
     </form>
   </main>
 </body>
