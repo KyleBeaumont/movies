@@ -52,13 +52,20 @@
   }
 
   function getMovies () {
-    global $movies;
-
+    global $db;
+    $sql = "SELECT * FROM movies";
+    $result = $db->query($sql);
+    $movies = $result->fetchAll();
     return $movies;
   }
 
   function searchMovies ($search) {
-    global $movies;
+    global $db;
+    $sql = "SELECT * FROM movies WHERE movie_title LIKE :search";
+    $result = $db->prepare($sql);
+    $result->execute([':search' => '%' . $search . '%']);
+    $movies = $result->fetchAll();
+    return $movies;
 
     return array_filter($movies, function ($movie) use ($search) {
       return strpos(strtolower($movie['movie_title']), strtolower($search)) !== false;
@@ -66,27 +73,32 @@
   }
 
   function getMovie ($movie_id) {
-    global $movies;
-
-    return current(array_filter($movies, function ($movie) use ($movie_id) {
+    global $db;
+    $sql = "SELECT * FROM movies JOIN genres on movies.genre_id =  genres.genre_id WHERE movie_id = :movie_id";
+$result =  $db ->prepare($sql);
+$result->execute([':movie_id' => $movie_id]);
+$movie = $result->fetch();
+return $movie;
+   /* return current(array_filter($movies, function ($movie) use ($movie_id) {
       return $movie['movie_id'] == $movie_id;
-    }));
+    }));*/
   }
 
   function addMovie ($movie) {
-    global $movies;
+    global $db;
+    global $genres;
+    $genre_id = array_search($movie['genre_title'], $genres) + 1;
+    $sql = "INSERT INTO movies (movie_title, director, year, genre_id)
+    VALUES (:movie_title, :director, :year, :genre_id)";
+    $result = $db->prepare($sql);
+    $result->execute(['movie_title' => $movie['movie_title'],
+    ':director' => $movie['movie_title'],
+    ':year' => $movie['year'],
+    ':genre_id' => $genre_id]);
+    return $db->lastInsertId();
+    
 
-    array_push($movies, [
-      'movie_id' => end($movies)['movie_id'] + 1,
-      'movie_title' => $movie['movie_title'],
-      'director' => $movie['director'],
-      'year' => $movie['year'],
-      'genre_title' => $movie['genre_title']
-    ]);
 
-    $_SESSION['movies'] = $movies;
-
-    return end($movies)['movie_id'];
   }
 
   function updateMovie ($movie) {
